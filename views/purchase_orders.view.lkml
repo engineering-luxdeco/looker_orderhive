@@ -190,6 +190,30 @@ view: purchase_orders {
     sql: ${TABLE}.warehouse_id ;;
   }
 
+  dimension: days_expected_to_delivered {
+    type: number
+    sql: datediff(${received_podate_date}, ${expected_delivery_date}) ;;
+  }
+
+  measure: num_orders {
+    type: count_distinct
+    sql: ${id} ;;
+  }
+
+  measure: num_delivered_on_time {
+    type: count_distinct
+    sql: ${TABLE}.id ;;
+    filters: {
+      field: days_expected_to_delivered
+      value: ">= 0"
+    }
+  }
+
+  measure: avg_expected_to_delivered {
+    type: average
+    sql: ${days_expected_to_delivered} ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [detail*]
