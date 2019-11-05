@@ -195,6 +195,21 @@ view: purchase_orders {
     sql: datediff(${received_podate_date}, ${expected_delivery_date}) ;;
   }
 
+  dimension: days_po_created_to_paid {
+    type: number
+    sql: datediff(${paid_podate_date}, ${created_date}) ;;
+  }
+
+  dimension: days_po_created_to_received {
+    type: number
+    sql: datediff(${received_podate_date}, ${created_date}) ;;
+  }
+
+  dimension: days_po_created_to_raised {
+    type: number
+    sql: datediff(${expected_delivery_date}, ${created_date}) ;;
+  }
+
   measure: num_orders {
     type: count_distinct
     sql: ${id} ;;
@@ -209,9 +224,28 @@ view: purchase_orders {
     }
   }
 
-  measure: avg_expected_to_delivered {
+  measure: avg_days_expected_to_delivered {
     type: average
     sql: ${days_expected_to_delivered} ;;
+    value_format_name: decimal_2
+  }
+
+  measure: avg_days_created_to_raised {
+    type: average
+    sql: ${days_po_created_to_raised} ;;
+    value_format_name: decimal_2
+  }
+
+  measure: avg_days_created_to_paid {
+    type: average
+    sql: ${days_po_created_to_paid} ;;
+    value_format_name: decimal_2
+  }
+
+  measure: avg_days_created_to_received {
+    type: average
+    sql: ${days_po_created_to_received} ;;
+    value_format_name: decimal_2
   }
 
   measure: count {

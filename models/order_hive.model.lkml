@@ -598,6 +598,7 @@ explore: dropshippers {
   }
 
 explore: failed_attempt_stores {
+  hidden: yes
   join: channels {
     type: left_outer
     sql_on: ${failed_attempt_stores.channel_id} = ${channels.id} ;;
@@ -621,7 +622,10 @@ explore: indexing_track {
 
 explore: inventoryprofit {
   hidden: yes
-
+  join: shipments {
+    relationship: many_to_many
+    sql_on: ${sales_orders.id} = ${shipments.sales_order_id} ;;
+  }
   join: sales_orders {
     type: left_outer
     sql_on: ${inventoryprofit.sales_order_id} = ${sales_orders.id} ;;
@@ -672,6 +676,7 @@ explore: inventoryprofit {
 }
 
 explore: inventorystatus {
+  hidden: yes
   join: suppliers {
     type: left_outer
     sql_on: ${inventorystatus.supplier_id} = ${suppliers.id} ;;
@@ -728,6 +733,11 @@ explore: inventorystatus {
 }
 
 explore: invoices {
+  hidden: yes
+  join: shipments {
+    sql_on: ${sales_orders.id} = ${shipments.sales_order_id} ;;
+    relationship: one_to_many
+  }
   join: sales_orders {
     type: left_outer
     sql_on: ${invoices.sales_order_id} = ${sales_orders.id} ;;
@@ -766,6 +776,7 @@ explore: invoices {
 }
 
 explore: invoices_stores {
+  hidden: yes
   join: invoices {
     type: left_outer
     sql_on: ${invoices_stores.invoice_id} = ${invoices.id} ;;
@@ -807,9 +818,14 @@ explore: invoices_stores {
     sql_on: ${stores.last_access_record_id} = ${last_access_records.id} ;;
     relationship: many_to_one
   }
+  join: shipments {
+    sql_on: ${sales_orders.id} = ${shipments.sales_order_id} ;;
+    relationship: one_to_many
+  }
 }
 
 explore: item_bundles {
+  hidden: yes
   join: items {
     type: left_outer
     sql_on: ${item_bundles.item_id} = ${items.id} ;;
@@ -829,9 +845,12 @@ explore: item_bundles {
   }
 }
 
-explore: item_descriptions {}
+explore: item_descriptions {
+  hidden: yes
+}
 
 explore: item_images {
+  hidden: yes
   join: items {
     type: left_outer
     sql_on: ${item_images.item_id} = ${items.id} ;;
@@ -852,6 +871,7 @@ explore: item_images {
 }
 
 explore: item_locations {
+  hidden: yes
   join: items {
     type: left_outer
     sql_on: ${item_locations.item_id} = ${items.id} ;;
@@ -884,6 +904,7 @@ explore: item_locations {
 }
 
 explore: item_prices {
+  hidden: yes
   join: items {
     type: left_outer
     sql_on: ${item_prices.item_id} = ${items.id} ;;
@@ -903,11 +924,16 @@ explore: item_prices {
   }
 }
 
-explore: item_reasons {}
+explore: item_reasons {
+  hidden: yes
+}
 
-explore: itemindex {}
+explore: itemindex {
+  hidden: yes
+}
 
 explore: itemlogs {
+  hidden: yes
   join: sales_orders {
     type: left_outer
     sql_on: ${itemlogs.sales_order_id} = ${sales_orders.id} ;;
@@ -955,9 +981,14 @@ explore: itemlogs {
     sql_on: ${items.supplier_id} = ${suppliers.id} ;;
     relationship: many_to_one
   }
+  join: shipments {
+    sql_on: ${sales_orders.id} = ${shipments.sales_order_id} ;;
+    relationship: one_to_many
+  }
 }
 
 explore: items {
+  hidden: yes
   join: suppliers {
     type: left_outer
     sql_on: ${items.supplier_id} = ${suppliers.id} ;;
@@ -972,6 +1003,7 @@ explore: items {
 }
 
 explore: items_merges {
+  hidden: yes
   join: items {
     type: left_outer
     sql_on: ${items_merges.item_id} = ${items.id} ;;
@@ -992,6 +1024,7 @@ explore: items_merges {
 }
 
 explore: items_options {
+  hidden: yes
   join: items {
     type: left_outer
     sql_on: ${items_options.item_id} = ${items.id} ;;
@@ -1018,6 +1051,7 @@ explore: items_options {
 }
 
 explore: items_stores {
+  hidden: yes
   join: items {
     type: left_outer
     sql_on: ${items_stores.item_id} = ${items.id} ;;
@@ -1062,6 +1096,7 @@ explore: items_stores {
 }
 
 explore: items_suppliers {
+  hidden: yes
   join: items {
     type: left_outer
     sql_on: ${items_suppliers.item_id} = ${items.id} ;;
@@ -1082,6 +1117,7 @@ explore: items_suppliers {
 }
 
 explore: items_warehouses {
+  hidden: yes
   join: items {
     type: left_outer
     sql_on: ${items_warehouses.item_id} = ${items.id} ;;
@@ -1108,6 +1144,7 @@ explore: items_warehouses {
 }
 
 explore: itemview {
+  hidden: yes
   join: stores {
     type: left_outer
     sql_on: ${itemview.store_id} = ${stores.id} ;;
@@ -1133,9 +1170,12 @@ explore: itemview {
   }
 }
 
-explore: label_settings {}
+explore: label_settings {
+  hidden: yes
+}
 
 explore: last_access_records {
+  hidden: yes
   join: stores {
     type: left_outer
     sql_on: ${last_access_records.store_id} = ${stores.id} ;;
@@ -1156,6 +1196,7 @@ explore: last_access_records {
 }
 
 explore: locations {
+  hidden: yes
   join: warehouses {
     type: left_outer
     sql_on: ${locations.warehouse_id} = ${warehouses.id} ;;
@@ -1163,11 +1204,16 @@ explore: locations {
   }
 }
 
-explore: module_tabs {}
+explore: module_tabs {
+  hidden: yes
+}
 
-explore: mongo_item_failed_logs {}
+explore: mongo_item_failed_logs {
+  hidden: yes
+}
 
 explore: option_values {
+  hidden: yes
   join: options {
     type: left_outer
     sql_on: ${option_values.option_id} = ${options.id} ;;
@@ -1175,9 +1221,16 @@ explore: option_values {
   }
 }
 
-explore: options {}
+explore: options {
+  hidden: yes
+}
 
 explore: orderlogs {
+  hidden: yes
+  join: shipments {
+    sql_on: ${sales_orders.id} = ${shipments.sales_order_id} ;;
+    relationship: one_to_many
+  }
   join: sales_orders {
     type: left_outer
     sql_on: ${orderlogs.sales_order_id} = ${sales_orders.id} ;;
@@ -1215,9 +1268,16 @@ explore: orderlogs {
   }
 }
 
-explore: package_types {}
+explore: package_types {
+  hidden: yes
+}
 
 explore: packages {
+  hidden: yes
+  join: shipments {
+    sql_on: ${sales_orders.id} = ${shipments.sales_order_id} ;;
+    relationship: one_to_many
+  }
   join: sales_orders {
     type: left_outer
     sql_on: ${packages.sales_order_id} = ${sales_orders.id} ;;
@@ -1261,9 +1321,12 @@ explore: packages {
   }
 }
 
-explore: partners {}
+explore: partners {
+  hidden: yes
+}
 
 explore: password_resets {
+  hidden: yes
   join: users {
     type: left_outer
     sql_on: ${password_resets.user_id} = ${users.id} ;;
@@ -1284,6 +1347,7 @@ explore: password_resets {
 }
 
 explore: passwords {
+  hidden: yes
   join: users {
     type: left_outer
     sql_on: ${passwords.user_id} = ${users.id} ;;
@@ -1303,9 +1367,12 @@ explore: passwords {
   }
 }
 
-explore: payment_methods {}
+explore: payment_methods {
+  hidden: yes
+}
 
 explore: payment_stores {
+  hidden: yes
   join: payments {
     type: left_outer
     sql_on: ${payment_stores.payment_id} = ${payments.payment_id} ;;
@@ -1328,6 +1395,10 @@ explore: payment_stores {
     type: left_outer
     sql_on: ${payments.sales_order_id} = ${sales_orders.id} ;;
     relationship: many_to_one
+  }
+  join: shipments {
+    sql_on: ${sales_orders.id} = ${shipments.sales_order_id} ;;
+    relationship: one_to_many
   }
 
   join: invoices {
@@ -1355,13 +1426,20 @@ explore: payment_stores {
   }
 }
 
-explore: payment_terms {}
+explore: payment_terms {
+  hidden: yes
+}
 
 explore: payments {
+  hidden: yes
   join: sales_orders {
     type: left_outer
     sql_on: ${payments.sales_order_id} = ${sales_orders.id} ;;
     relationship: many_to_one
+  }
+  join: shipments {
+    sql_on: ${sales_orders.id} = ${shipments.sales_order_id} ;;
+    relationship: one_to_many
   }
 
   join: stores {
@@ -1401,15 +1479,24 @@ explore: payments {
   }
 }
 
-explore: plans {}
+explore: plans {
+  hidden: yes
+}
 
-explore: plans_old {}
+explore: plans_old {
+  hidden: yes
+}
 
-explore: pre_defined_customs_items {}
+explore: pre_defined_customs_items {
+  hidden: yes
+}
 
-explore: presets {}
+explore: presets {
+  hidden: yes
+}
 
 explore: printer_setups {
+  hidden: yes
   join: printhive_accounts {
     type: left_outer
     sql_on: ${printer_setups.printhive_account_id} = ${printhive_accounts.id} ;;
@@ -1417,9 +1504,12 @@ explore: printer_setups {
   }
 }
 
-explore: printhive_accounts {}
+explore: printhive_accounts {
+  hidden: yes
+}
 
 explore: purchase_order_extra_items {
+  hidden: yes
   join: purchase_orders {
     type: left_outer
     sql_on: ${purchase_order_extra_items.purchase_order_id} = ${purchase_orders.id} ;;
@@ -1493,6 +1583,10 @@ explore: purchase_order_items {
     sql_on: ${items.supplier_id} = ${suppliers.id} ;;
     relationship: many_to_one
   }
+  join: shipments {
+    sql_on: ${sales_orders.id} = ${shipments.sales_order_id} ;;
+    relationship: one_to_many
+  }
 }
 
 explore: purchase_orders {
@@ -1510,6 +1604,7 @@ explore: purchase_orders {
 }
 
 explore: purchase_orders_billings {
+  hidden: yes
   join: purchase_orders {
     type: left_outer
     sql_on: ${purchase_orders_billings.purchase_order_id} = ${purchase_orders.id} ;;
@@ -1548,6 +1643,7 @@ explore: purchase_orders_billings {
 }
 
 explore: purchase_orders_stores {
+  hidden: yes
   join: purchase_orders {
     type: left_outer
     sql_on: ${purchase_orders_stores.purchase_order_id} = ${purchase_orders.id} ;;
@@ -1586,6 +1682,7 @@ explore: purchase_orders_stores {
 }
 
 explore: purchaselogs {
+  hidden: yes
   join: purchase_orders {
     type: left_outer
     sql_on: ${purchaselogs.purchase_order_id} = ${purchase_orders.id} ;;
@@ -1612,6 +1709,7 @@ explore: purchaselogs {
 }
 
 explore: record_references {
+  hidden: yes
   join: items {
     type: left_outer
     sql_on: ${record_references.item_id} = ${items.id} ;;
@@ -1632,6 +1730,7 @@ explore: record_references {
 }
 
 explore: return_orders {
+  hidden: yes
   join: stores {
     type: left_outer
     sql_on: ${return_orders.store_id} = ${stores.id} ;;
@@ -1666,14 +1765,24 @@ explore: return_orders {
     type: left_outer
     sql_on: ${sales_orders.contact_id} = ${contacts.id} ;;
     relationship: many_to_one
+
+  }
+  join: shipments {
+    relationship: one_to_many
+    sql_on: ${sales_orders.id} = ${shipments.sales_order_id} ;;
   }
 }
 
 explore: returns_items {
+  hidden: yes
   join: sales_order_items {
     type: left_outer
     sql_on: ${returns_items.sales_order_item_id} = ${sales_order_items.id} ;;
     relationship: many_to_one
+  }
+  join: shipments {
+    relationship: many_to_many
+    sql_on: ${sales_orders.id} = ${shipments.sales_order_id} ;;
   }
 
   join: items {
@@ -1686,6 +1795,7 @@ explore: returns_items {
     type: left_outer
     sql_on: ${returns_items.return_order_id} = ${return_orders.id} ;;
     relationship: many_to_one
+
   }
 
   join: sales_orders {
@@ -1731,9 +1841,12 @@ explore: returns_items {
   }
 }
 
-explore: returns_reasons {}
+explore: returns_reasons {
+  hidden: yes
+}
 
 explore: role_details {
+  hidden: yes
   join: roles {
     type: left_outer
     sql_on: ${role_details.role_id} = ${roles.id} ;;
@@ -1741,9 +1854,12 @@ explore: role_details {
   }
 }
 
-explore: roles {}
+explore: roles {
+  hidden: yes
+}
 
 explore: sales_order_access_controls {
+  hidden: yes
   join: sales_orders {
     type: left_outer
     sql_on: ${sales_order_access_controls.sales_order_id} = ${sales_orders.id} ;;
@@ -1797,9 +1913,14 @@ explore: sales_order_access_controls {
     sql_on: ${users.role_id} = ${roles.id} ;;
     relationship: many_to_one
   }
+  join: shipments {
+    sql_on: ${sales_orders.id} = ${shipments.sales_order_id} ;;
+    relationship: one_to_many
+  }
 }
 
 explore: sales_order_extra_items {
+  hidden: yes
   join: sales_orders {
     type: left_outer
     sql_on: ${sales_order_extra_items.sales_order_id} = ${sales_orders.id} ;;
@@ -1835,9 +1956,14 @@ explore: sales_order_extra_items {
     sql_on: ${stores.last_access_record_id} = ${last_access_records.id} ;;
     relationship: many_to_one
   }
+  join: shipments {
+    sql_on: ${sales_orders.id} = ${shipments.sales_order_id} ;;
+    relationship: one_to_many
+  }
 }
 
 explore: sales_order_files {
+  hidden: yes
   join: sales_orders {
     type: left_outer
     sql_on: ${sales_order_files.sales_order_id} = ${sales_orders.id} ;;
@@ -1873,17 +1999,29 @@ explore: sales_order_files {
     sql_on: ${stores.last_access_record_id} = ${last_access_records.id} ;;
     relationship: many_to_one
   }
+  join: shipments {
+    sql_on: ${sales_orders.id} = ${shipments.sales_order_id} ;;
+    relationship: one_to_many
+  }
 }
 
-explore: sales_order_index {}
+explore: sales_order_index {
+  hidden: yes
+}
 
-explore: sales_order_index_test {}
+explore: sales_order_index_test {
+  hidden: yes
+}
 
 explore: sales_order_items {
   join: sales_orders {
     type: left_outer
     sql_on: ${sales_order_items.sales_order_id} = ${sales_orders.id} ;;
     relationship: many_to_one
+  }
+  join: shipments {
+    sql_on: ${sales_orders.id} = ${shipments.sales_order_id} ;;
+    relationship: one_to_many
   }
 
   join: items {
@@ -1959,9 +2097,14 @@ explore: sales_orders {
     sql_on: ${stores.last_access_record_id} = ${last_access_records.id} ;;
     relationship: many_to_one
   }
+  join: shipments {
+    sql_on: ${sales_orders.id} = ${shipments.sales_order_id} ;;
+    relationship: one_to_many
+  }
 }
 
 explore: sales_orders_stores {
+  hidden: yes
   join: sales_orders {
     type: left_outer
     sql_on: ${sales_orders_stores.sales_order_id} = ${sales_orders.id} ;;
@@ -1972,6 +2115,10 @@ explore: sales_orders_stores {
     type: left_outer
     sql_on: ${sales_orders_stores.store_id} = ${stores.id} ;;
     relationship: many_to_one
+  }
+  join: shipments {
+    sql_on: ${sales_orders.id} = ${shipments.sales_order_id} ;;
+    relationship: one_to_many
   }
 
   join: channels {
@@ -1999,7 +2146,9 @@ explore: sales_orders_stores {
   }
 }
 
-explore: shipment_batches {}
+explore: shipment_batches {
+  hidden: yes
+}
 
 explore: shipments {
   join: packages {
@@ -2057,9 +2206,12 @@ explore: shipments {
   }
 }
 
-explore: shipping_methods {}
+explore: shipping_methods {
+  hidden: yes
+}
 
 explore: shipping_stores {
+  hidden: yes
   join: channels {
     type: left_outer
     sql_on: ${shipping_stores.channel_id} = ${channels.id} ;;
@@ -2068,6 +2220,7 @@ explore: shipping_stores {
 }
 
 explore: stock_transfer_items {
+  hidden: yes
   join: stock_transfers {
     type: left_outer
     sql_on: ${stock_transfer_items.stock_transfer_id} = ${stock_transfers.id} ;;
@@ -2093,9 +2246,12 @@ explore: stock_transfer_items {
   }
 }
 
-explore: stock_transfers {}
+explore: stock_transfers {
+  hidden: yes
+}
 
 explore: stockevaluation {
+  hidden: yes
   join: items {
     type: left_outer
     sql_on: ${stockevaluation.itemid} = ${items.id} ;;
@@ -2122,6 +2278,7 @@ explore: stockevaluation {
 }
 
 explore: store_stock_policies {
+  hidden: yes
   join: stores {
     type: left_outer
     sql_on: ${store_stock_policies.store_id} = ${stores.id} ;;
@@ -2148,6 +2305,7 @@ explore: store_stock_policies {
 }
 
 explore: stores {
+  hidden: yes
   join: channels {
     type: left_outer
     sql_on: ${stores.channel_id} = ${channels.id} ;;
@@ -2168,6 +2326,7 @@ explore: stores {
 }
 
 explore: suppliers {
+  hidden: yes
   join: contacts {
     type: left_outer
     sql_on: ${suppliers.contact_id} = ${contacts.id} ;;
@@ -2176,6 +2335,7 @@ explore: suppliers {
 }
 
 explore: tab_settings {
+  hidden: yes
   join: users {
     type: left_outer
     sql_on: ${tab_settings.user_id} = ${users.id} ;;
@@ -2195,9 +2355,12 @@ explore: tab_settings {
   }
 }
 
-explore: tags {}
+explore: tags {
+  hidden: yes
+}
 
 explore: tags_links {
+  hidden: yes
   join: tags {
     type: left_outer
     sql_on: ${tags_links.tag_id} = ${tags.id} ;;
@@ -2206,6 +2369,7 @@ explore: tags_links {
 }
 
 explore: taxes {
+  hidden: yes
   join: stores {
     type: left_outer
     sql_on: ${taxes.store_id} = ${stores.id} ;;
@@ -2231,11 +2395,16 @@ explore: taxes {
   }
 }
 
-explore: test_stores {}
+explore: test_stores {
+  hidden: yes
+}
 
-explore: timezones {}
+explore: timezones {
+  hidden: yes
+}
 
 explore: transactions {
+  hidden: yes
   join: stores {
     type: left_outer
     sql_on: ${transactions.store_id} = ${stores.id} ;;
@@ -2261,9 +2430,12 @@ explore: transactions {
   }
 }
 
-explore: user_check {}
+explore: user_check {
+  hidden: yes
+}
 
 explore: user_details {
+  hidden: yes
   join: users {
     type: left_outer
     sql_on: ${user_details.user_id} = ${users.id} ;;
@@ -2284,6 +2456,7 @@ explore: user_details {
 }
 
 explore: user_resync_activities {
+  hidden: yes
   join: stores {
     type: left_outer
     sql_on: ${user_resync_activities.store_id} = ${stores.id} ;;
@@ -2309,11 +2482,16 @@ explore: user_resync_activities {
   }
 }
 
-explore: user_surveys {}
+explore: user_surveys {
+  hidden: yes
+}
 
-explore: user_tokens {}
+explore: user_tokens {
+  hidden: yes
+}
 
 explore: users {
+  hidden: yes
   join: plans {
     type: left_outer
     sql_on: ${users.plan_id} = ${plans.plan_identifier} ;;
@@ -2328,6 +2506,7 @@ explore: users {
 }
 
 explore: users_counts_detail {
+  hidden: yes
   join: users {
     type: left_outer
     sql_on: ${users_counts_detail.user_id} = ${users.id} ;;
@@ -2347,4 +2526,6 @@ explore: users_counts_detail {
   }
 }
 
-explore: warehouses {}
+explore: warehouses {
+  hidden: yes
+}
