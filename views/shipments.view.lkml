@@ -265,6 +265,23 @@ view: shipments {
     drill_fields: [detail*]
   }
 
+
+  dimension: days_expected_to_delivery {
+    type: number
+    sql: datediff(${delivery_date}, ${expected_delivery_date}) ;;
+    value_format_name: decimal_2
+  }
+
+
+  measure: avg_days_expected_to_delivery {
+    type: average
+    sql: ${days_expected_to_delivery} ;;
+  }
+
+  measure: on_time_ratio {
+    type: average
+    sql: case when ${days_expected_to_delivery}<=0 then 1.0 else 0.0 end ;;
+  }
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [

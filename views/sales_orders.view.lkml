@@ -422,7 +422,7 @@ view: sales_orders {
 
   measure: avg_days_expected_to_delivery {
     type: average
-    sql: ${days_expected_to_delivery},2 ;;
+    sql: ${days_expected_to_delivery} ;;
     value_format_name: decimal_2
   }
 

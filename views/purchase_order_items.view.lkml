@@ -159,6 +159,11 @@ view: purchase_order_items {
     drill_fields: [detail*]
   }
 
+  measure: qty_received_m {
+    type: sum
+    sql: ${TABLE}.qty_received ;;
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
