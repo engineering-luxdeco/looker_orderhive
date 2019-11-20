@@ -676,7 +676,6 @@ explore: inventoryprofit {
 }
 
 explore: inventorystatus {
-  hidden: yes
   join: suppliers {
     type: left_outer
     sql_on: ${inventorystatus.supplier_id} = ${suppliers.id} ;;
