@@ -721,7 +721,7 @@ explore: inventorystatus {
 
   join: items {
     type: left_outer
-    sql_on: ${item_locations.item_id} = ${items.id} ;;
+    sql_on: ${inventorystatus.sku} = ${items.sku} ;;
     relationship: many_to_one
   }
 
