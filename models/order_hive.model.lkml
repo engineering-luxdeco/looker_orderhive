@@ -511,7 +511,7 @@ explore: contacts_stores {
 }
 
 explore: countries {
-  hidden: yes
+
   }
 
 explore: courier_account_numbers {
@@ -1195,7 +1195,7 @@ explore: last_access_records {
 }
 
 explore: locations {
-  hidden: yes
+#   hidden: yes
   join: warehouses {
     type: left_outer
     sql_on: ${locations.warehouse_id} = ${warehouses.id} ;;
@@ -1535,9 +1535,17 @@ explore: purchase_order_items {
     relationship: many_to_one
   }
 
-  join: sales_orders {
+
+
+  join: sales_order_items {
     type: left_outer
-    sql_on: ${purchase_order_items.sales_order_id} = ${sales_orders.id} ;;
+    sql_on: ${purchase_order_items.purchase_order_id} = ${sales_order_items.po_id} ;;
+    relationship: many_to_one
+  }
+
+    join: sales_orders {
+    type: left_outer
+    sql_on: ${sales_order_items.sales_order_id} = ${sales_orders.id} ;;
     relationship: many_to_one
   }
 
@@ -1582,6 +1590,7 @@ explore: purchase_order_items {
     sql_on: ${items.supplier_id} = ${suppliers.id} ;;
     relationship: many_to_one
   }
+
   join: shipments {
     sql_on: ${sales_orders.id} = ${shipments.sales_order_id} ;;
     relationship: one_to_many

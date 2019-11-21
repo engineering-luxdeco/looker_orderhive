@@ -93,23 +93,23 @@ view: purchase_order_items {
     sql: ${TABLE}.purchase_order_id ;;
   }
 
-  dimension: qty_damaged {
-    type: number
+  measure: qty_damaged {
+    type: sum
     sql: ${TABLE}.qty_damaged ;;
   }
 
-  dimension: qty_ordered {
-    type: number
+  measure: qty_ordered {
+    type: sum
     sql: ${TABLE}.qty_ordered ;;
   }
 
-  dimension: qty_received {
-    type: number
+  measure: qty_received {
+    type: sum
     sql: ${TABLE}.qty_received ;;
   }
 
-  dimension: received_total {
-    type: number
+  measure: received_total {
+    type: sum
     sql: ${TABLE}.received_total ;;
   }
 
