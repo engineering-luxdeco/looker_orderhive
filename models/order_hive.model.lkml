@@ -1535,8 +1535,6 @@ explore: purchase_order_items {
     relationship: many_to_one
   }
 
-
-
   join: sales_order_items {
     type: left_outer
     sql_on: ${purchase_order_items.purchase_order_id} = ${sales_order_items.po_id} ;;
@@ -2072,6 +2070,15 @@ explore: sales_order_items {
     type: left_outer
     sql_on: ${items.supplier_id} = ${suppliers.id} ;;
     relationship: many_to_one
+  }
+  join: purchase_order_items {
+    type: left_outer
+    sql_on: ${purchase_order_items.purchase_order_id} = ${sales_order_items.po_id} ;;
+    relationship: many_to_many
+  }
+  join: purchase_orders {
+    sql_on: ${purchase_order_items.purchase_order_id} = ${purchase_orders.id} ;;
+    relationship: many_to_many
   }
 }
 
