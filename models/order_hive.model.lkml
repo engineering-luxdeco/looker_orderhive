@@ -2025,6 +2025,7 @@ explore: sales_order_items {
     sql_on: ${sales_order_items.sales_order_id} = ${sales_orders.id} ;;
     relationship: many_to_one
   }
+
   join: shipments {
     sql_on: ${sales_orders.id} = ${shipments.sales_order_id} ;;
     relationship: one_to_many
@@ -2036,35 +2037,35 @@ explore: sales_order_items {
     relationship: many_to_one
   }
 
-  join: contacts {
-    type: left_outer
-    sql_on: ${sales_orders.contact_id} = ${contacts.id} ;;
-    relationship: many_to_one
-  }
-
-  join: channels {
-    type: left_outer
-    sql_on: ${sales_orders.channel_id} = ${channels.id} ;;
-    relationship: many_to_one
-  }
-
-  join: stores {
-    type: left_outer
-    sql_on: ${sales_orders.store_id} = ${stores.id} ;;
-    relationship: many_to_one
-  }
-
-  join: warehouses {
-    type: left_outer
-    sql_on: ${sales_orders.warehouse_id} = ${warehouses.id} ;;
-    relationship: many_to_one
-  }
-
-  join: last_access_records {
-    type: left_outer
-    sql_on: ${stores.last_access_record_id} = ${last_access_records.id} ;;
-    relationship: many_to_one
-  }
+#   join: contacts {
+#     type: left_outer
+#     sql_on: ${sales_orders.contact_id} = ${contacts.id} ;;
+#     relationship: many_to_one
+#   }
+#
+#   join: channels {
+#     type: left_outer
+#     sql_on: ${sales_orders.channel_id} = ${channels.id} ;;
+#     relationship: many_to_one
+#   }
+#
+#   join: stores {
+#     type: left_outer
+#     sql_on: ${sales_orders.store_id} = ${stores.id} ;;
+#     relationship: many_to_one
+#   }
+#
+#   join: warehouses {
+#     type: left_outer
+#     sql_on: ${sales_orders.warehouse_id} = ${warehouses.id} ;;
+#     relationship: many_to_one
+#   }
+#
+#   join: last_access_records {
+#     type: left_outer
+#     sql_on: ${stores.last_access_record_id} = ${last_access_records.id} ;;
+#     relationship: many_to_one
+#   }
 
   join: suppliers {
     type: left_outer
@@ -2073,7 +2074,7 @@ explore: sales_order_items {
   }
   join: purchase_order_items {
     type: left_outer
-    sql_on: ${purchase_order_items.purchase_order_id} = ${sales_order_items.po_id} ;;
+    sql_on: ${purchase_order_items.purchase_order_id} = ${sales_order_items.po_id} and ${purchase_order_items.item_id} = ${sales_order_items.item_id} ;;
     relationship: many_to_many
   }
   join: purchase_orders {

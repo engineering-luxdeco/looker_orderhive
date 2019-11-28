@@ -2,8 +2,10 @@ view: purchase_order_items {
   sql_table_name: luxdeco_prod.purchase_order_items ;;
   drill_fields: [id]
 
+# Note: duplicated, maybe shouldn't be the primary key
   dimension: id {
     primary_key: yes
+    hidden: yes
     type: number
     sql: ${TABLE}.id ;;
   }
@@ -18,9 +20,10 @@ view: purchase_order_items {
     sql: ${TABLE}.article_no ;;
   }
 
-  dimension: buy_price {
-    type: number
+  measure: buy_price {
+    type: sum
     sql: ${TABLE}.buy_price ;;
+    value_format_name: gbp
   }
 
   dimension_group: created {
@@ -43,8 +46,8 @@ view: purchase_order_items {
     sql: ${TABLE}.item_id ;;
   }
 
-  dimension: margin {
-    type: number
+  measure: margin {
+    type: sum
     sql: ${TABLE}.margin ;;
   }
 
@@ -77,8 +80,8 @@ view: purchase_order_items {
     sql: ${TABLE}.name ;;
   }
 
-  dimension: net_margin {
-    type: number
+  measure: net_margin {
+    type: sum
     sql: ${TABLE}.net_margin ;;
   }
 
@@ -113,9 +116,10 @@ view: purchase_order_items {
     sql: ${TABLE}.received_total ;;
   }
 
-  dimension: retail_price {
-    type: number
+  measure: retail_price {
+    type: sum
     sql: ${TABLE}.retail_price ;;
+    value_format_name: gbp
   }
 
   dimension: sales_order_id {
@@ -129,9 +133,10 @@ view: purchase_order_items {
     sql: ${TABLE}.sku ;;
   }
 
-  dimension: tax {
-    type: number
+  measure: tax {
+    type: sum
     sql: ${TABLE}.tax ;;
+    value_format_name: gbp
   }
 
   dimension: tax_percent {
@@ -149,9 +154,10 @@ view: purchase_order_items {
     sql: ${TABLE}.tenant_id ;;
   }
 
-  dimension: total {
-    type: number
+  measure: total {
+    type: sum
     sql: ${TABLE}.total ;;
+    value_format_name: gbp
   }
 
   measure: count {

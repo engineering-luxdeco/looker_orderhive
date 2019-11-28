@@ -32,8 +32,8 @@ view: sales_order_items {
     sql: ${TABLE}.created ;;
   }
 
-  dimension: discount {
-    type: number
+  measure: discount {
+    type: sum
     sql: ${TABLE}.discount ;;
   }
 
@@ -82,8 +82,8 @@ view: sales_order_items {
     sql: ${TABLE}.note ;;
   }
 
-  dimension: po_blocked_qty {
-    type: number
+  measure: po_blocked_qty {
+    type: sum
     sql: ${TABLE}.po_blocked_qty ;;
   }
 
@@ -92,68 +92,69 @@ view: sales_order_items {
     sql: ${TABLE}.po_id ;;
   }
 
-  dimension: po_order_qty {
-    type: number
+  measure: po_order_qty {
+    type: sum
     sql: ${TABLE}.po_order_qty ;;
   }
 
-  dimension: po_received_qty {
-    type: number
+  measure: po_received_qty {
+    type: sum
     sql: ${TABLE}.po_received_qty ;;
   }
 
-  dimension: price {
-    type: number
+  measure: price {
+    type: sum
     sql: ${TABLE}.price ;;
+    value_format_name: gbp
   }
 
-  dimension: qty_available {
-    type: number
+  measure: qty_available {
+    type: sum
     sql: ${TABLE}.qty_available ;;
   }
 
-  dimension: qty_cancelled {
-    type: number
+  measure: qty_cancelled {
+    type: sum
     sql: ${TABLE}.qty_cancelled ;;
   }
 
-  dimension: qty_delivered {
-    type: number
+  measure: qty_delivered {
+    type: sum
     sql: ${TABLE}.qty_delivered ;;
   }
 
-  dimension: qty_dropshipped {
-    type: number
+  measure: qty_dropshipped {
+    type: sum
     sql: ${TABLE}.qty_dropshipped ;;
   }
 
-  dimension: qty_invoiced {
-    type: number
+  measure: qty_invoiced {
+    type: sum
     sql: ${TABLE}.qty_invoiced ;;
   }
 
-  dimension: qty_ordered {
-    type: number
+  measure: qty_ordered {
+    type: sum
     sql: ${TABLE}.qty_ordered ;;
   }
 
-  dimension: qty_packed {
-    type: number
+  measure: qty_packed {
+    type: sum
     sql: ${TABLE}.qty_packed ;;
   }
 
-  dimension: qty_returned {
-    type: number
+  measure: qty_returned {
+    type: sum
     sql: ${TABLE}.qty_returned ;;
   }
 
-  dimension: qty_shipped {
-    type: number
+  measure: qty_shipped {
+    type: sum
     sql: ${TABLE}.qty_shipped ;;
   }
 
-  dimension: rowtotal {
-    type: number
+  measure: rowtotal {
+    type: sum
     sql: ${TABLE}.rowtotal ;;
   }
 
@@ -187,8 +188,8 @@ view: sales_order_items {
     sql: ${TABLE}.tax ;;
   }
 
-  dimension: tax_percent {
-    type: number
+  measure: tax_percent {
+    type: sum
     sql: ${TABLE}.tax_percent ;;
   }
 
