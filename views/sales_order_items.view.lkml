@@ -153,6 +153,11 @@ view: sales_order_items {
     sql: ${TABLE}.qty_shipped ;;
   }
 
+  measure: pending_qty {
+    type: number
+    sql: ${qty_ordered} - ${qty_cancelled} - ${qty_delivered} ;;
+  }
+
   measure: rowtotal {
     type: sum
     sql: ${TABLE}.rowtotal ;;
