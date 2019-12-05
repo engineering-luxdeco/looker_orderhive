@@ -156,6 +156,7 @@ view: sales_order_items {
   measure: pending_qty {
     type: number
     sql: ${qty_ordered} - ${qty_cancelled} - ${qty_delivered} ;;
+    description: "ordered qty - cancelled qty - delivered qty"
   }
 
   measure: rowtotal {
