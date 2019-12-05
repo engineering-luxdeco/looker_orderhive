@@ -113,11 +113,12 @@ view: purchase_orders {
 
   dimension: po_status_string {
     type: string
-    sql: case ${po_status} when 1 then 'Draft'
-           when 2 then 'Raised'
-           when 3 then 'Partially Received'
-           when 4 then 'Fully Received'
-          when 5 then 'Closed' ;;
+    sql: case when ${po_status} = 1 then 'Draft'
+           when ${po_status} = 2 then 'Raised'
+           when ${po_status} = 3 then 'Partially Received'
+           when ${po_status} = 4 then 'Fully Received'
+           when ${po_status} = 5 then 'Closed'
+          end ;;
   }
 
   dimension: prefix {
