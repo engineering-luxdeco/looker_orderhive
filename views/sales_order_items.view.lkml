@@ -189,6 +189,20 @@ view: sales_order_items {
     sql: ${TABLE}.sync_created ;;
   }
 
+  dimension_group: estimated_item_delivery {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: date_add(${created_date}, INTERVAL ${items.delivery_days} DAY) ;;
+  }
+
   dimension: tax {
     type: number
     sql: ${TABLE}.tax ;;
