@@ -2027,10 +2027,12 @@ explore: sales_order_items {
   }
   join: packages {
     relationship: one_to_many
-    sql_on: trim('"' FROM json_extract(package_items, '$[0].item_id')) = sales_order_items.item_id ;;
+    sql_on: trim('"' FROM json_extract(package_items, '$[0].item_id')) = sales_order_items.item_id
+    and ${sales_orders.id} = ${packages.sales_order_id} ;;
   }
   join: shipments {
-    sql_on: ${packages.id} = ${shipments.package_id} ;;
+    sql_on: ${packages.id} = ${shipments.package_id}
+      and ${shipments.is_void} is null;;
     relationship: one_to_many
   }
 
