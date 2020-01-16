@@ -3,7 +3,7 @@ view: shipments {
   drill_fields: [parent_shipment_id]
 
   dimension: parent_shipment_id {
-    primary_key: yes
+#     primary_key: yes
     type: number
     sql: ${TABLE}.parent_shipment_id ;;
   }
@@ -77,6 +77,7 @@ view: shipments {
   }
 
   dimension: id {
+    primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
   }

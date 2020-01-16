@@ -414,18 +414,6 @@ view: sales_orders {
     value_format_name: decimal_2
   }
 
-  dimension: days_expected_to_delivery {
-    type: number
-    sql: datediff(${shipments.delivery_date}, ${shipments.expected_delivery_date}) ;;
-    value_format_name: decimal_2
-  }
-
-  measure: avg_days_expected_to_delivery {
-    type: average
-    sql: ${days_expected_to_delivery} ;;
-    value_format_name: decimal_2
-  }
-
   measure: count {
     type: count
     drill_fields: [detail*]
