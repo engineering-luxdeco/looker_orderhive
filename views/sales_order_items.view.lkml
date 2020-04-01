@@ -223,6 +223,11 @@ view: sales_order_items {
     drill_fields: [detail*]
   }
 
+#   measure: qty_left_after_order {
+#     type: number
+#     sql: ${items.qty_available} - ${qty_ordered} ;;
+#   }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
