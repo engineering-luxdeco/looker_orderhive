@@ -1607,6 +1607,14 @@ explore: purchase_orders {
     sql_on: ${purchase_orders.warehouse_id} = ${warehouses.id} ;;
     relationship: many_to_one
   }
+  join: tags_links {
+    relationship: one_to_many
+    sql_on: ${purchase_orders.id} = ${tags_links.linked_id};;
+  }
+  join: tags {
+    relationship: one_to_many
+    sql_on: ${tags_links.tag_id} = ${tags.id} ;;
+  }
 }
 
 explore: purchase_orders_billings {
@@ -1645,14 +1653,6 @@ explore: purchase_orders_billings {
     type: left_outer
     sql_on: ${stores.last_access_record_id} = ${last_access_records.id} ;;
     relationship: many_to_one
-  }
-  join: tags_links {
-    relationship: one_to_many
-    sql_on: ${purchase_orders.id} = tag_links.${tags_links.linked_id};;
-  }
-  join: tags {
-    relationship: one_to_many
-    sql_on: ${tags_links.id} = ${tags.id} ;;
   }
 }
 
