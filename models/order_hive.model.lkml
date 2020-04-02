@@ -1609,8 +1609,8 @@ explore: purchase_orders {
   }
   join: tags_links {
     relationship: one_to_many
-    sql_on: ${purchase_orders.id} = ${tags_links.linked_id};;
-  }
+    sql_on: ${purchase_orders.id} = ${tags_links.linked_id} and ${tags_links.type} = 'purchase_order';;
+    }
   join: tags {
     relationship: one_to_many
     sql_on: ${tags_links.tag_id} = ${tags.id} ;;
@@ -2093,6 +2093,14 @@ explore: sales_order_items {
   join: purchase_orders {
     sql_on: ${purchase_order_items.purchase_order_id} = ${purchase_orders.id} ;;
     relationship: many_to_many
+  }
+  join: tags_links {
+    relationship: one_to_many
+    sql_on: ${purchase_orders.id} = ${tags_links.linked_id} and ${tags_links.type} = 'purchase_order';;
+  }
+  join: tags {
+    relationship: one_to_many
+    sql_on: ${tags_links.tag_id} = ${tags.id} ;;
   }
 }
 
