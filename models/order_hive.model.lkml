@@ -2094,14 +2094,27 @@ explore: sales_order_items {
     sql_on: ${purchase_order_items.purchase_order_id} = ${purchase_orders.id} ;;
     relationship: many_to_many
   }
-  join: tags_links {
+  join: purchase_tag_links {
+    from: tags_links
     relationship: one_to_many
-    sql_on: ${purchase_orders.id} = ${tags_links.linked_id} and ${tags_links.type} = 'purchase_order';;
+    sql_on: ${purchase_orders.id} = ${purchase_tag_links.linked_id} and ${purchase_tag_links.type} = 'purchase_order';;
   }
-  join: tags {
+  join: purchase_tags {
+    from: tags
     relationship: one_to_many
-    sql_on: ${tags_links.tag_id} = ${tags.id} ;;
+    sql_on: ${purchase_tag_links.tag_id} = ${purchase_tags.id} ;;
   }
+  join: sales_tag_links {
+    from: tags_links
+    relationship: one_to_many
+    sql_on: ${sales_orders.id} = ${sales_tag_links.linked_id} and ${sales_tag_links.type} = 'sales_order';;
+  }
+  join: sales_tags {
+    from: tags
+    relationship: one_to_many
+    sql_on: ${sales_tag_links.tag_id} = ${sales_tags.id} ;;
+  }
+
 }
 
 explore: sales_orders {
@@ -2137,6 +2150,14 @@ explore: sales_orders {
   join: shipments {
     sql_on: ${sales_orders.id} = ${shipments.sales_order_id} ;;
     relationship: one_to_many
+  }
+  join: tags_links {
+    relationship: one_to_many
+    sql_on: ${sales_orders.id} = ${tags_links.linked_id} and ${tags_links.type} = 'sales_order';;
+  }
+  join: tags {
+    relationship: one_to_many
+    sql_on: ${tags_links.tag_id} = ${tags.id} ;;
   }
 }
 
