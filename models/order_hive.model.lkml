@@ -1536,7 +1536,7 @@ explore: purchase_order_items {
   }
 
   join: comments {
-    sql: ${purchase_orders.id} = ${comments.purchase_order_id} ;;
+    sql_on: ${purchase_orders.id} = ${comments.purchase_order_id} ;;
     relationship: many_to_many
   }
 
@@ -1608,7 +1608,7 @@ explore: purchase_orders {
   }
 
   join: comments {
-    sql: ${purchase_orders.id} = ${comments.purchase_order_id} ;;
+    sql_on: ${purchase_orders.id} = ${comments.purchase_order_id} ;;
     relationship: many_to_many
   }
 
