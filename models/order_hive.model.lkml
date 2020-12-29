@@ -1535,6 +1535,11 @@ explore: purchase_order_items {
     relationship: many_to_one
   }
 
+  join: comments {
+    sql: ${purchase_orders.id} = ${comments.purchase_order_id} ;;
+    relationship: many_to_many
+  }
+
   join: sales_order_items {
     type: left_outer
     sql_on: ${purchase_order_items.purchase_order_id} = ${sales_order_items.po_id} ;;
@@ -1601,6 +1606,12 @@ explore: purchase_orders {
     sql_on: ${purchase_orders.contact_id} = ${contacts.id} ;;
     relationship: many_to_one
   }
+
+  join: comments {
+    sql: ${purchase_orders.id} = ${comments.purchase_order_id} ;;
+    relationship: many_to_many
+  }
+
 
   join: warehouses {
     type: left_outer
