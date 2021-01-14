@@ -1598,6 +1598,16 @@ explore: purchase_order_items {
     sql_on: ${sales_orders.id} = ${shipments.sales_order_id} ;;
     relationship: one_to_many
   }
+
+  join: tags_links {
+    relationship: one_to_many
+    sql_on: ${purchase_orders.id} = ${tags_links.linked_id}
+      and ${tags_links.type} = 'purchase_order' ;;
+  }
+  join: tags {
+    relationship: one_to_many
+    sql_on: ${tags_links.tag_id} = ${tags.id} ;;
+  }
 }
 
 explore: purchase_orders {
