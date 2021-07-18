@@ -217,8 +217,30 @@ view: purchase_orders {
 
   dimension: days_po_created_to_raised {
     type: number
-    sql: datediff(${expected_delivery_date}, ${created_date}) ;;
+    sql: datediff(${raise_podate_date}, ${created_date}) ;;
   }
+
+  dimension: days_po_raised_to_received {
+    type: number
+    sql: datediff(${received_podate_date}, ${raise_podate_date}) ;;
+  }
+
+  dimension: days_po_raised_to_paid {
+    type: number
+    sql: datediff(${paid_podate_date}, ${raise_podate_date}) ;;
+  }
+
+  dimension: days_order_created_to_po_created {
+    type: number
+    sql: datediff(${created_date}, ${sales_orders.created_date}) ;;
+
+  }
+
+  dimension: days_po_paid_to_order_shipped {
+    type: number
+    sql: datediff(${shipments.shipping_date}, ${paid_podate_date}) ;;
+  }
+
 
   measure: num_orders {
     type: count_distinct
@@ -257,6 +279,34 @@ view: purchase_orders {
     sql: ${days_po_created_to_received} ;;
     value_format_name: decimal_2
   }
+
+  measure: avg_days_raised_to_received {
+    type: average
+    sql: ${days_po_raised_to_received} ;;
+    value_format_name: decimal_2
+  }
+
+  measure: avg_days_raised_to_paid {
+    type: average
+    sql: ${days_po_raised_to_paid} ;;
+    value_format_name: decimal_2
+  }
+
+  measure: avg_order_date_to_po_created {
+    type: average
+    sql: ${days_order_created_to_po_created} ;;
+    value_format_name: decimal_2
+    sql_distinct_key:concat(${id},${sales_orders.id}) ;;
+  }
+
+  measure: avg_po_paid_to_order_shipped {
+    type: average
+    sql: ${days_po_paid_to_order_shipped} ;;
+    value_format_name: decimal_2
+    sql_distinct_key:concat(${id},${shipments.id}) ;;
+  }
+
+
 
   measure: count {
     type: count

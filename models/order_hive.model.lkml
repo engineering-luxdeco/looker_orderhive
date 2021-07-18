@@ -424,6 +424,7 @@ explore: combined_items {
 
 explore: comments {
   hidden: yes
+  fields: [ALL_FIELDS*, -purchase_orders.days_order_created_to_po_created,-purchase_orders.days_po_paid_to_order_shipped,-purchase_orders.avg_order_date_to_po_created,-purchase_orders.avg_po_paid_to_order_shipped] # exclude fields
 
   join: users {
     type: left_outer
@@ -466,7 +467,12 @@ explore: comments {
     sql_on: ${purchase_orders.warehouse_id} = ${warehouses.id} ;;
     relationship: many_to_one
   }
+
+
 }
+
+
+
 
 explore: contact_index {
   hidden: yes
@@ -1526,6 +1532,9 @@ explore: purchase_order_extra_items {
     sql_on: ${purchase_orders.warehouse_id} = ${warehouses.id} ;;
     relationship: many_to_one
   }
+  join: sales_orders {}
+
+  join: shipments{}
 }
 
 explore: purchase_order_items {
@@ -1593,9 +1602,14 @@ explore: purchase_order_items {
     sql_on: ${sales_orders.id} = ${shipments.sales_order_id} ;;
     relationship: one_to_many
   }
+
+
+
 }
 
 explore: purchase_orders {
+  fields: [ALL_FIELDS*, -purchase_orders.days_order_created_to_po_created,-purchase_orders.days_po_paid_to_order_shipped,-purchase_orders.avg_order_date_to_po_created,-purchase_orders.avg_po_paid_to_order_shipped] # exclude fields
+
   join: contacts {
     type: left_outer
     sql_on: ${purchase_orders.contact_id} = ${contacts.id} ;;
@@ -1615,9 +1629,12 @@ explore: purchase_orders {
     relationship: one_to_many
     sql_on: ${tags_links.tag_id} = ${tags.id} ;;
   }
+
 }
 
 explore: purchase_orders_billings {
+  fields: [ALL_FIELDS*, -purchase_orders.days_order_created_to_po_created,-purchase_orders.days_po_paid_to_order_shipped,-purchase_orders.avg_order_date_to_po_created,-purchase_orders.avg_po_paid_to_order_shipped] # exclude fields
+
   hidden: yes
   join: purchase_orders {
     type: left_outer
@@ -1657,6 +1674,8 @@ explore: purchase_orders_billings {
 }
 
 explore: purchase_orders_stores {
+  fields: [ALL_FIELDS*, -purchase_orders.days_order_created_to_po_created,-purchase_orders.days_po_paid_to_order_shipped,-purchase_orders.avg_order_date_to_po_created,-purchase_orders.avg_po_paid_to_order_shipped] # exclude fields
+
   hidden: yes
   join: purchase_orders {
     type: left_outer
@@ -1696,6 +1715,8 @@ explore: purchase_orders_stores {
 }
 
 explore: purchaselogs {
+  fields: [ALL_FIELDS*, -purchase_orders.days_order_created_to_po_created,-purchase_orders.days_po_paid_to_order_shipped,-purchase_orders.avg_order_date_to_po_created,-purchase_orders.avg_po_paid_to_order_shipped] # exclude fields
+
   hidden: yes
   join: purchase_orders {
     type: left_outer
@@ -2118,6 +2139,7 @@ explore: sales_order_items {
 }
 
 explore: sales_orders {
+
   join: contacts {
     type: left_outer
     sql_on: ${sales_orders.contact_id} = ${contacts.id} ;;
@@ -2159,6 +2181,8 @@ explore: sales_orders {
     relationship: one_to_many
     sql_on: ${tags_links.tag_id} = ${tags.id} ;;
   }
+
+
 }
 
 explore: sales_orders_stores {

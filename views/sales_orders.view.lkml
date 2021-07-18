@@ -109,6 +109,11 @@ view: sales_orders {
     sql: ${TABLE}.channel_order_number ;;
   }
 
+  dimension: channel_order_number_no_hash {
+    type: string
+    sql: REPLACE(${channel_order_number},'#','');;
+  }
+
   dimension: channel_shipping_address_id {
     type: string
     sql: ${TABLE}.channel_shipping_address_id ;;
